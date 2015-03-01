@@ -1,1 +1,1 @@
-# blizzcore
+# Blizzcore

@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var server = require('../server');
+var debug = require('debug')('blizzcore:server');
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
+/**
+ * Create HTTP server.
+ */
+
+var httpServer = http.createServer(server).listen(80);
+httpServer.on('error', onError);
+httpServer.on('listening', httpOnListening);
+
+/**
+ * Create HTTPS server.
+ */
+
+var credentials = {
+  key: fs.readFileSync('cert/key.pem'),
+  cert: fs.readFileSync('cert/cert.pem')
+};
+var httpsServer = https.createServer(credentials, server).listen(443);
+httpsServer.on('error', onError);
+httpsServer.on('listening', httpsOnListening);
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error('Port ' + port + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error('Port ' + port + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP & HTTPS server "listening" event.
+ */
+
+function httpOnListening() {
+  debug('HTTP server listening on port ' + httpServer.address().port);
+}
+
+function httpsOnListening() {
+  debug('HTTPS server listening on port ' + httpsServer.address().port);
+}

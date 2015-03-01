@@ -1,0 +1,21 @@
+<h1>Users</h1>
+<table class="table table-bordered table-striped">
+	<tr>
+		<th>BattleId</th>
+		<th>BattleTag</th>
+		<th>Created</th>
+		<th>Last Login</th>
+		<th>Reputation</th>
+		<th>Total Posts</th>
+		<th>Signature</th>
+	</tr>
+	<tr ng-repeat="user in users">
+		<td>{{user.battleId}}</td>
+		<td>{{user.battleTag}}</td>
+		<td>{{user.created}}</td>
+		<td>{{user.lastLogin}}</td>
+		<td>{{user.reputation}}</td>
+		<td>{{user.totalPosts}}</td>
+		<td>{{user.signature}}</td>
+	</tr>
+</table>

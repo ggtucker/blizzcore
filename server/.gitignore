@@ -1,0 +1,11 @@
+# Dependency directory
+node_modules
+
+# TLS certificates
+cert
+
+# Server config
+config.js
+
+# Mongodb data
+data
